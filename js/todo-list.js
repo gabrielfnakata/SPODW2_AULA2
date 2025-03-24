@@ -12,48 +12,12 @@ document.getElementById("new-todo").addEventListener("keypress", function (e) {
     }
 });
 
-function renderDoneTodos() {
+function renderTodos(todosList = todos) {
     const todoListUl = document.getElementById("todo-list");
     todoListUl.innerHTML = "";
     
     buttonExibittion(todoListUl);
-    for (const todo of todos) {
-        if (todo.done) {
-            const todoItemLi = document.createElement("li");
-            todoItemLi.textContent = todo.text;
-            todoItemLi.style.textDecoration = "line-through";
-            todoListUl.appendChild(todoItemLi);
-        }
-    }
-}
-
-function renderPendingTodos() {
-    const todoListUl = document.getElementById("todo-list");
-    todoListUl.innerHTML = "";
-    
-    buttonExibittion(todoListUl);
-    for (const todo of todos) {
-        if(!todo.done) {
-            const todoItemLi = document.createElement("li");
-            todoItemLi.textContent = todo.text;
-            const markTodoAsDoneButton = document.createElement("button");
-            markTodoAsDoneButton.textContent = "Concluir";
-            markTodoAsDoneButton.onclick = function () {
-                todo.done = true;
-                renderTodos();
-            };
-            todoItemLi.appendChild(markTodoAsDoneButton);
-            todoListUl.appendChild(todoItemLi);
-        }
-    }
-}
-
-function renderTodos() {
-    const todoListUl = document.getElementById("todo-list");
-    todoListUl.innerHTML = "";
-    
-    buttonExibittion(todoListUl);
-    for (const todo of todos) {
+    for (const todo of todosList) {
         const todoItemLi = document.createElement("li");
         todoItemLi.textContent = todo.text;
     
@@ -104,7 +68,7 @@ function buttonExibittion(todoListUl) {
         showOnlyPendingTodosButton.classList.add("todos-exibition-buttons");
         showOnlyPendingTodosButton.textContent = "To-dos Pendentes";
         showOnlyPendingTodosButton.onclick = function () {
-            renderPendingTodos();
+            renderTodos(todos.filter(todo => todo.done));
         }
         todoListUl.appendChild(showOnlyPendingTodosButton);
 
@@ -112,7 +76,7 @@ function buttonExibittion(todoListUl) {
         showOnlyDoneTodosButton.classList.add("todos-exibition-buttons");
         showOnlyDoneTodosButton.textContent = "To-dos Concluídos";
         showOnlyDoneTodosButton.onclick = function () {
-            renderDoneTodos();
+            renderTodos(todos.filter(todo => !todo.done));
         }
         todoListUl.appendChild(showOnlyDoneTodosButton);
     }
