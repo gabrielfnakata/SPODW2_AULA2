@@ -68,7 +68,7 @@ function buttonExibittion(todoListUl) {
         showOnlyPendingTodosButton.classList.add("todos-exibition-buttons");
         showOnlyPendingTodosButton.textContent = "To-dos Pendentes";
         showOnlyPendingTodosButton.onclick = function () {
-            renderTodos(todos.filter(todo => todo.done));
+            renderTodos(todos.filter(todo => !todo.done));
         }
         todoListUl.appendChild(showOnlyPendingTodosButton);
 
@@ -76,7 +76,7 @@ function buttonExibittion(todoListUl) {
         showOnlyDoneTodosButton.classList.add("todos-exibition-buttons");
         showOnlyDoneTodosButton.textContent = "To-dos Concluídos";
         showOnlyDoneTodosButton.onclick = function () {
-            renderTodos(todos.filter(todo => !todo.done));
+            renderTodos(todos.filter(todo => todo.done));
         }
         todoListUl.appendChild(showOnlyDoneTodosButton);
     }
